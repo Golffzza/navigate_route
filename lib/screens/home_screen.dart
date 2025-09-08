@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navigate_route/screens/detail_screen.dart';
+import 'package:navigate_route/screens/third_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/detail';
@@ -26,6 +27,20 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: const Text('Go to Detail Screen'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.pushNamed(
+                  context,
+                  ThirdScreen.routeName,
+                  arguments: {
+                    // ส่ง arguments เป็น Map
+                    'id': 'GOLF008',
+                    'title': 'ข้อมูลจาก Named Route Args',
+                  },
+                );
+              },
+              child: const Text('Go to Third Screen'),
             ),
           ],
         ),
