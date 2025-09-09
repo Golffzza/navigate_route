@@ -1,32 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:navigate_route/screens/data_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:navigate_route/screens/detail_screen.dart';
+import 'package:navigate_route/screens/third_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  static String routeName = '/';
   const HomeScreen({super.key});
-  static const routeName = '/home';
 
   @override
   Widget build(BuildContext context) {
-    final message = context.watch<DataProvider>().message;
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Home Screen')),
+      appBar: AppBar(title: Text('Home Screen')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(message, style: const TextStyle(fontSize: 15)),
-            const SizedBox(height: 5),
             ElevatedButton(
-              onPressed: () {
-                context.read<DataProvider>().setMessage(
-                  "this is data from home page",
+              onPressed: () async {
+                final result = await Navigator.pushNamed(
+                  context,
+                  DetailScreen.routeName,
+                  arguments: {
+                    'itemId': 'Item-456',
+                    'message': 'ข้อมูลผ่าน arguments',
+                  },
                 );
-                Navigator.pushNamed(context, DetailScreen.routeName);
+                print('ได้ค่ากลับมาคือ $result');
               },
-              child: const Text("Go to Detail Screen"),
+              child: Text('Go to Detail Screen'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final result = await Navigator.pushNamed(
+                  context,
+                  ThirdScreen.routeName,
+                  arguments: {
+                    'itemId': 'Item-333',
+                    'message': 'เข้าสู่หน้า Third Screen',
+                  },
+                );
+                print('ได้ค่ากลับมาคือ $result');
+              },
+              child: Text('Go to thrid Srceen'),
             ),
           ],
         ),
