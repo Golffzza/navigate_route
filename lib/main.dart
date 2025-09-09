@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:navigate_route/screens/data_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:navigate_route/screens/detail_screen.dart';
 import 'package:navigate_route/screens/home_screen.dart';
-import 'package:navigate_route/screens/third_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => DataProvider(), // ✅ Provider ครอบทั้งแอป
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,12 +24,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      initialRoute: HomeScreen.routeName, // ชื่อ route เริ่มต้น
+      initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => const HomeScreen(),
         DetailScreen.routeName: (context) => const DetailScreen(),
-        ThirdScreen.routeName: (context) => const ThirdScreen(),
-        // เพิ่ม screens อื่นๆ ที่นี่ภายหลัง
       },
     );
   }
